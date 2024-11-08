@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>Planets</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Planets</h1>
+
+[ <a href="planets.html">Planets</a> | <a href="people.html">People</a> | Certifications | People Certified ]
+<div id="browse" style="display: block">
+<p><strong>Browse Planets</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#">New</a></th>
+    <th></th>
+    <th>ID</th>
+    <th>name</th>
+    <th>population</th>
+    <th>language</th>
+    <th>capital</th>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right" >1</td>
+    <td >Gemenon</td>
+    <td align="right" >2800000000</td>
+    <td>Old Gemenese</td>
+    <td>Oranu</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Leonis</td>
+    <td align="right" >2600000000</td>
+    <td >Leonese</td>
+    <td>Luminere</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td>3</td>
+    <td>Caprica</td>
+    <td align="right" >4900000000</td>
+    <td>Caprican</td>
+    <td>Caprica City</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addPlanet">
+        <legend><strong>Add Planet</strong></legend>
+          <fieldset class="fields">
+            <label> Name </label> <input type="text" name="name">
+            <label> Population </label> <input type="text" name="population">
+            <label> Language </label> <input type="text" name="language">
+            <label> Capital </label> <input type="text" name="language">
+          </fieldset>
+          <input class="btn" type="submit" id="addPlanet" value="Add a Planet">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new planet-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updatePlanet">
+      <legend><strong>Update Planet</strong></legend>
+          <fieldset class="fields">
+          <label>ID:</label> 1
+            <label> Name </label> <input type="text" value="Gemenon" name="name">
+            <label> Population </label> <input type="text"  name="population" value="2800000000">
+            <label> Language </label> <input type="text" name="language" value="Old Gemenese">
+            <label> Capital </label> <input type="text" name="language" value="Oranu">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSavePlanet" value="Save Update Planet">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deletePlanet">
+      <legend><strong>Delete Planet</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <label>ID:</label> 1
+            <label> Name </label> Gemenon
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeletePlanet" value="Delete Planet">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

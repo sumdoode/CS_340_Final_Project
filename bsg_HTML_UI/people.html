@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>People</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newPerson() { showform('insert'); }
+    function updatePerson(pid) { showform('update'); }
+    function deletePerson(pid) { showform ('delete'); }
+    function browsePeople() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browsePeople()">
+<h1>People</h1>
+
+[ <a href="planets.html">Planets</a> | <a href="people.html">People</a> | Certifications | People Certified ]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newPerson()">New</a></th>
+    <th></th>
+    <th>id</th>
+    <th>fname</th>
+    <th>lname</th>
+    <th>homeworld</th>
+    <th>age</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td >William</td>
+    <td align="right" >Adama</td>
+    <td>Caprica</td>
+    <td>61</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Lee</td>
+    <td align="right" >Adama</td>
+    <td >Caprica</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td>3</td>
+    <td>Laura</td>
+    <td align="right" >Roslin</td>
+    <td>Caprica</td>
+    <td><em>NULL</em></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addPlanet">
+        <legend><strong>Add Person</strong></legend>
+          <fieldset class="fields">
+            <label> first name </label> <input type="text" name="fname">
+            <label> last name </label> <input type="text" name="lname">
+            <label> Homeworld </label> <select name="homeworld">
+            	<option value="0">&nbsp;</option>
+                <option value="1">Gemenon</option>
+                <option value="2">Leonis</option>
+                <option value="3">Caprica</option>
+                </select>
+            <label> age </label> <input type="text" name="age">
+      </fieldset>
+          <input class="btn" type="submit" id="addPerson" value="Add Person">
+          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdatePerson">
+        <legend><strong>Update Person</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="personID" id="updatepersonID" value="1">
+          <label> ID: </label> 1
+            <label> first name </label> <input type="text" name="fname" value="William">
+            <label> last name </label> <input type="text" name="lname" value="Adama">
+            <label> Homeworld </label> <select name="homeworld">
+            	<option value="0">&nbsp;</option>
+                <option value="1" selected>Gemenon</option>
+                <option value="2">Leonis</option>
+                <option value="3">Caprica</option>
+                </select>
+            <label> age </label> <input type="text" name="age" value="61">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSavePerson" value="Save Update Person">
+          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deletePerson">
+      <legend><strong>Delete Person</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="personID" id="deletepersonID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> William Adama
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeletePerson" value="Delete Person">
+          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
