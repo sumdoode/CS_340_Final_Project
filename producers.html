@@ -8,96 +8,90 @@
 <body onload="browsePeople()">
 <h1>Producers</h1>
 
-[  <a href="index.html">Home</a> | <a href="customers.html">Customers</a> | <a href="bottles.html">Bottles</a> |  <a href="Orders.html">Orders</a> ]
+[  <a href="index.html">Home</a> | <a href="customers.html">Customers</a> | <a href="bottles.html">Bottles</a> |  <a href="orders.html">Orders</a> ]
 
     
 <div id="browse">
-    <p><strong>Browse Customers</strong></p>
+    <p><strong>Browse Producers</strong></p>
     
-    <!-- Customers Table -->
-    <div id="browseCustomers" style="display: block;">
+    <!-- Producers Table -->
+    <div id="browseProducers" style="display: block;">
         <table border="1" cellpadding="5">
             <tbody>
                 <tr>
                     <th><a href="#">New</a></th>
                     <th></th>
                     <th>ID</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Visit Frequency (Monthly)</th>
+                    <th>Producer Name</th>
+                    <th>Region</th>
+                    <th>Region Details</th>
                 </tr>
                 <tr>
                     <td><a href="#">Edit</a></td>
                     <td><a href="#">Delete</a></td>
                     <td align="right">1</td>
-                    <td>7561485213</td>
-                    <td>gsmith@email.com</td>
-                    <td>George Smith</td>
-                    <td>2</td>
+                    <td>Bit Farms</td>
+                    <td>Napa Valley</td>
+                    <td>Producing wine since 1968</td>
                 </tr>
                 <tr>
                     <td><a href="#">Edit</a></td>
                     <td><a href="#">Delete</a></td>
                     <td align="right">2</td>
-                    <td>5413247813</td>
-                    <td>asmith@gmail.com</td>
-                    <td>Adam Smith</td>
-                    <td>1</td>
+                    <td>Byte Farms</td>
+                    <td>Sonoma</td>
+                    <td>Producing wine since 1985</td>
                 </tr>
                 <tr>
                     <td><a href="#">Edit</a></td>
                     <td><a href="#">Delete</a></td>
                     <td align="right">3</td>
-                    <td>4512369756</td>
-                    <td>csmith@gmail.com</td>
-                    <td>Charles Smith</td>
-                    <td>3</td>
+                    <td>Data Farms</td>
+                    <td>Columbia Valley</td>
+                    <td>Producing wine since 1928</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Add Customer Form -->
-    <div id="insertCustomer" style="display: block;">
-        <form method="POST" id="addCustomer">
-            <legend><strong>Add Customer</strong></legend>
+    <!-- Add Producer Form -->
+    <div id="insertProducer" style="display: block;">
+        <form method="POST" id="addProducer">
+            <legend><strong>Add Producer</strong></legend>
             <fieldset class="fields">
-                <label> Phone Number </label> <input type="text" name="phone_num">
-                <label> Email </label> <input type="email" name="email">
-                <label> Name </label> <input type="text" name="name">
-                <label> Visit Frequency (Monthly) </label> <input type="number" name="visit_frequency_monthly">
+                <label> Producer Name </label> <input type="text" name="producer_name">
+                <label> Region </label> <input type="text" name="region">
+                <label> Region Details </label> <input type="text" name="region_details">
             </fieldset>
-            <input class="btn" type="submit" id="addCustomerButton" value="Add Customer">
+            <input class="btn" type="submit" id="addProducerButton" value="Add Producer">
         </form> 
     </div>
 
-    <!-- Update Customer Form -->
-    <div id="updateCustomer" style="display: block;">
-        <form method="POST" id="updateCustomerForm">
-            <legend><strong>Update Customer</strong></legend>
+    <!-- Update Producer Form -->
+    <div id="updateProducer" style="display: block;">
+        <form method="POST" id="updateProducerForm">
+            <legend><strong>Update Producer</strong></legend>
             <fieldset class="fields">
-                <input type="hidden" name="customer_id" id="updateCustomerID" value="1">
-                <label> Phone Number </label> <input type="text" name="phone_num" value="7561485213">
-                <label> Email </label> <input type="email" name="email" value="gsmith@email.com">
-                <label> Name </label> <input type="text" name="name" value="George Smith">
-                <label> Visit Frequency (Monthly) </label> <input type="number" name="visit_frequency_monthly" value="2">
+                <input type="hidden" name="producer_id" id="updateProducerID" value="1">
+                <label> Producer Name </label> <input type="text" name="producer_name" value="Bit Farms">
+                <label> Region </label> <input type="text" name="region" value="Napa Valley">
+                <label> Region Details </label> <input type="text" name="region_details" value="Producing wine since 1968">
             </fieldset>
-            <input class="btn" type="submit" id="updateCustomerButton" value="Save Customer">
+            <input class="btn" type="submit" id="updateProducerButton" value="Save Producer">
         </form> 
     </div>
 
-    <!-- Delete Customer Form -->
-    <div id="deleteCustomer" style="display: block;">
-        <form method="POST" id="deleteCustomerForm">
-            <legend><strong>Delete Customer</strong></legend>
+    <!-- Delete Producer Form -->
+    <div id="deleteProducer" style="display: block;">
+        <form method="POST" id="deleteProducerForm">
+            <legend><strong>Delete Producer</strong></legend>
             <fieldset class="fields">
                 <p>Are you sure you wish to delete the following?</p>
-                <input type="hidden" name="customer_id" id="deleteCustomerID" value="1">
+                <input type="hidden" name="producer_id" id="deleteProducerID" value="1">
                 <label><strong>ID:</strong></label> 1
-                <label> <strong>Name</strong> </label> George Smith
+                <label> <strong>Name</strong> </label> Bit Farms
             </fieldset>
-            <input class="btn" type="submit" id="deleteCustomerButton" value="Delete Customer">
+            <input class="btn" type="submit" id="deleteProducerButton" value="Delete Producer">
         </form> 
     </div>
 </div>
