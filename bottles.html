@@ -2,153 +2,123 @@
 <head>
 <title>Bottles</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript">
-		function showform(dowhat) {
-			/*
-			* four DIVS: browse, insert, update, delete
-			* this function sets one visible the others not
-			*/
-			if (dowhat == 'insert'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
-			}
-			else { //by default display browse
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-		}
-    function newPerson() { showform('insert'); }
-    function updatePerson(pid) { showform('update'); }
-    function deletePerson(pid) { showform ('delete'); }
-    function browsePeople() { showform ('browse'); }
-    function showAll() { showform ('all'); }
-</script>
+
 </head>
 
 <body onload="browsePeople()">
-<h1>People</h1>
+<h1>Bottles</h1>
 
-[  <a href="customers.html">Customers</a> | <a href="producers.html">Producers</a> |  <a href="bottles.html">Bottles</a> |  <a href="Orders.html">Orders</a> ]
+[ <a href="index.html">Home</a> | <a href="customers.html">Customers</a> | <a href="producers.html">Producers</a> |  <a href="Orders.html">Orders</a> ]
 
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Display all forms</a> </p>
-<table border="1" cellpadding="5">
-  <tr>
-    <th><a href="#" onClick="newPerson()">New</a></th>
-    <th></th>
-    <th>id</th>
-    <th>fname</th>
-    <th>lname</th>
-    <th>homeworld</th>
-    <th>age</th>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
-    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
-    <td align="right" >1</td>
-    <td >William</td>
-    <td align="right" >Adama</td>
-    <td>Caprica</td>
-    <td>61</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
-    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
-    <td align="right" >2</td>
-    <td>Lee</td>
-    <td align="right" >Adama</td>
-    <td >Caprica</td>
-    <td>30</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
-    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
-    <td>3</td>
-    <td>Laura</td>
-    <td align="right" >Roslin</td>
-    <td>Caprica</td>
-    <td><em>NULL</em></td>
-  </tr>
-</table>
-<p>&nbsp;</p>
-</div> <!-- browse -->
-<div id="insert">
-    <form method="POST" id="addPlanet">
-        <legend><strong>Add Person</strong></legend>
-          <fieldset class="fields">
-            <label> first name </label> <input type="text" name="fname">
-            <label> last name </label> <input type="text" name="lname">
-            <label> Homeworld </label> <select name="homeworld">
-            	<option value="0">&nbsp;</option>
-                <option value="1">Gemenon</option>
-                <option value="2">Leonis</option>
-                <option value="3">Caprica</option>
-                </select>
-            <label> age </label> <input type="text" name="age">
-      </fieldset>
-          <input class="btn" type="submit" id="addPerson" value="Add Person">
-          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
-	</form> 
-</div><!-- insert -->
-<p>&nbsp;</p>
-<div id="update">
-    <form method="POST" id="UpdatePerson">
-        <legend><strong>Update Person</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="personID" id="updatepersonID" value="1">
-          <label> ID: </label> 1
-            <label> first name </label> <input type="text" name="fname" value="William">
-            <label> last name </label> <input type="text" name="lname" value="Adama">
-            <label> Homeworld </label> <select name="homeworld">
-            	<option value="0">&nbsp;</option>
-                <option value="1" selected>Gemenon</option>
-                <option value="2">Leonis</option>
-                <option value="3">Caprica</option>
-                </select>
-            <label> age </label> <input type="text" name="age" value="61">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSavePerson" value="Save Update Person">
-          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
-	</form> 
-</div><!-- update -->
-<p>&nbsp;</p>
-<div id="delete" style="display: block">
-  <form method="POST" id="deletePerson">
-      <legend><strong>Delete Person</strong></legend>
-          <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <input type="hidden" name="personID" id="deletepersonID" value="1">
-          <label><strong>ID:</strong></label> 1
-            <label> <strong>Name</strong> </label> William Adama
-            
-    </fieldset>
-    <input class="btn" type="submit" id="DeletePerson" value="Delete Person">
-          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
-  </form> 
-</div><!-- delete -->
+    <p><strong>Browse Bottles</strong></p>
+    
+    <!-- Bottles Table -->
+    <div id="browseBottles" style="display: block;">
+        <table border="1" cellpadding="5">
+            <tbody>
+                <tr>
+                    <th><a href="#">New</a></th>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Bottle Name</th>
+                    <th>Type</th>
+                    <th>Volume (ml)</th>
+                    <th>Production Year</th>
+                    <th>Alcohol %</th>
+                    <th>Price ($)</th>
+                    <th>Producer ID</th>
+                </tr>
+                <tr>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                    <td align="right">1</td>
+                    <td>Binary Blend</td>
+                    <td>Merlot</td>
+                    <td>750</td>
+                    <td>2018</td>
+                    <td>12.00</td>
+                    <td>26.99</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                    <td align="right">2</td>
+                    <td>Bitwise Bordeaux</td>
+                    <td>Bordeaux</td>
+                    <td>750</td>
+                    <td>2020</td>
+                    <td>10.00</td>
+                    <td>32.99</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                    <td align="right">3</td>
+                    <td>Compiler Cabernet</td>
+                    <td>Cabernet</td>
+                    <td>750</td>
+                    <td>2015</td>
+                    <td>8.00</td>
+                    <td>45.99</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bottle Form -->
+    <div id="insertBottle" style="display: block;">
+        <form method="POST" id="addBottle">
+            <legend><strong>Add Bottle</strong></legend>
+            <fieldset class="fields">
+                <label> Bottle Name </label> <input type="text" name="bottle_name">
+                <label> Type </label> <input type="text" name="type">
+                <label> Volume (ml) </label> <input type="number" name="volume">
+                <label> Production Year </label> <input type="number" name="production_yr">
+                <label> Alcohol % </label> <input type="number" step="0.01" name="alc_percent">
+                <label> Price ($) </label> <input type="number" step="0.01" name="price">
+                <label> Producer ID </label> <input type="number" name="producer_id">
+            </fieldset>
+            <input class="btn" type="submit" id="addBottleButton" value="Add Bottle">
+        </form> 
+    </div>
+
+    <!-- Update Bottle Form -->
+    <div id="updateBottle" style="display: block;">
+        <form method="POST" id="updateBottleForm">
+            <legend><strong>Update Bottle</strong></legend>
+            <fieldset class="fields">
+                <input type="hidden" name="bottle_id" id="updateBottleID" value="1">
+                <label> Bottle Name </label> <input type="text" name="bottle_name" value="Binary Blend">
+                <label> Type </label> <input type="text" name="type" value="Merlot">
+                <label> Volume (ml) </label> <input type="number" name="volume" value="750">
+                <label> Production Year </label> <input type="number" name="production_yr" value="2018">
+                <label> Alcohol % </label> <input type="number" step="0.01" name="alc_percent" value="12.00">
+                <label> Price ($) </label> <input type="number" step="0.01" name="price" value="26.99">
+                <label> Producer ID </label> <input type="number" name="producer_id" value="1">
+            </fieldset>
+            <input class="btn" type="submit" id="updateBottleButton" value="Save Bottle">
+        </form> 
+    </div>
+
+    <!-- Delete Bottle Form -->
+    <div id="deleteBottle" style="display: block;">
+        <form method="POST" id="deleteBottleForm">
+            <legend><strong>Delete Bottle</strong></legend>
+            <fieldset class="fields">
+                <p>Are you sure you wish to delete the following?</p>
+                <input type="hidden" name="bottle_id" id="deleteBottleID" value="1">
+                <label><strong>ID:</strong></label> 1
+                <label> <strong>Bottle Name</strong> </label> Binary Blend
+            </fieldset>
+            <input class="btn" type="submit" id="deleteBottleButton" value="Delete Bottle">
+        </form> 
+    </div>
+</div>
 
 </body>
 </html>
