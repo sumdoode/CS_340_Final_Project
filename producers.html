@@ -60,7 +60,13 @@
             <legend><strong>Add Producer</strong></legend>
             <fieldset class="fields">
                 <label> Producer Name </label> <input type="text" name="producer_name">
-                <label> Region </label> <input type="text" name="region">
+                <label> Region </label>
+                <select name="region" required>
+                    <option value="">--Select Region--</option>
+                    <option value="Napa Valley">Napa Valley</option>
+                    <option value="Sonoma">Sonoma</option>
+                    <option value="Columbia Valley">Columbia Valley</option>
+                </select>
                 <label> Region Details </label> <input type="text" name="region_details">
             </fieldset>
             <input class="btn" type="submit" id="addProducerButton" value="Add Producer">
@@ -74,7 +80,13 @@
             <fieldset class="fields">
                 <input type="hidden" name="producer_id" id="updateProducerID" value="1">
                 <label> Producer Name </label> <input type="text" name="producer_name" value="Bit Farms">
-                <label> Region </label> <input type="text" name="region" value="Napa Valley">
+                <label> Region </label>
+                <select name="region" required>
+                    <option value="">--Select Region--</option>
+                    <option value="Napa Valley">Napa Valley</option>
+                    <option value="Sonoma">Sonoma</option>
+                    <option value="Columbia Valley">Columbia Valley</option>
+                </select>
                 <label> Region Details </label> <input type="text" name="region_details" value="Producing wine since 1968">
             </fieldset>
             <input class="btn" type="submit" id="updateProducerButton" value="Save Producer">
