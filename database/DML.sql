@@ -1,0 +1,70 @@
+-- Team 40 ( Manuel Ramirez & Gabriel Del Valle Rivera )
+-- Data Manipulation Queries
+
+
+--           (READ queries)
+
+-- Gets all customers to populate the Customers page
+SELECT customer_id, name, phone_num, email, visit_frequency_monthly FROM Customers;
+
+-- Gets all bottle information to populate Bottles page
+SELECT bottle_id, bottle_name, type, volume, production_yr, alc_percent, price, producer_id FROM Bottles;
+
+-- Gets all producer information to populate Producers page
+SELECT producer_id, producer_name, region, region_details FROM Producers;
+
+-- Gets all order information to populate Orders page
+SELECT order_id, customer_id, bottle_id, order_total FROM Orders;
+
+-- Gets all bottle orders to populate the Bottle Orders page
+SELECT bottle_orderID, order_id, bottle_id, order_qty FROM BottleOrders;
+
+
+--           (CREATE queries)
+
+-- Inserts a new customer into Cutomers table
+INSERT INTO Customers (name, phone_num, email) VALUES (%s, %s, %s);
+
+-- Inserts a new bottle into Bottles table
+INSERT INTO Bottles (bottle_name, type, volume, production_yr, alc_percent, price, producer_id) VALUES (%s, %s, %d, %d, %f, %f, %d);
+
+-- Inserts a new producer into Producers table
+INSERT INTO Producers (producer_name, region, region_details) VALUES (%s, $s, $s);
+
+-- Inserts a new order into the Orders table
+INSERT INTO Orders (customer_id, bottle_id, order_total) VALUES (%d, %d, %f);
+
+-- Inserts a new bottle order into BottleOrders table
+INSERT INTO Orders (order_id, bottle_id, order_qty) VALUES (%d, %d, %d);
+
+
+--           (UPDATE queries)
+
+-- Updates existing bottle in Bottles table
+UPDATE Bottles SET Bottles.bottle_name = %s, Bottles.type = %s, Bottles.volume = %d, Bottles.production_yr = %d, Bottles.alc_percent = %f,
+				   Bottles.price = %f, Bottles.producer_id = %d;
+                   
+-- Updates existing producer in Producers table
+UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = %s;
+
+-- Updates existing producer in Producers table if region_details is null
+UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = NULL;
+
+-- Updates existing bottle order in BottleOrders table
+UPDATE BottleOrders SET BottleOrders.customer_id = %d, BottleOrders.bottle_id = %d, BottleOrders.order_qty = %d;
+
+
+--           (DELETE queries)
+
+-- Deletes bottle from Bottles table
+DELETE FROM Bottles WHERE bottle_id = '%s';
+
+-- Deletes bottle order from BottleOrders table (M:M)
+DELETE FROM BottleOrders WHERE customer_id = '%d' AND bottle_id = '%d';
+
+
+--           (Dropdown queries)
+
+-- Select query for producers dropdown menu
+SELECT producer_id, producer_name FROM Producers;
+

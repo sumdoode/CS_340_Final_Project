@@ -1,0 +1,21 @@
+<table>
+
+    <thead>
+        <tr>
+            {% for key in customers[0].keys() %}
+                <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for person in customers %}
+        <tr>
+            {% for key in person.keys() %}
+                <td>{{person[key]}}</td>
+            {% endfor %}
+        </tr>    
+    {% endfor %}
+    </tbody>
+
+</table>
