@@ -42,16 +42,16 @@ INSERT INTO Orders (order_id, bottle_id, order_qty) VALUES (%d, %d, %d);
 
 -- Updates existing bottle in Bottles table
 UPDATE Bottles SET Bottles.bottle_name = %s, Bottles.type = %s, Bottles.volume = %d, Bottles.production_yr = %d, Bottles.alc_percent = %f,
-				   Bottles.price = %f, Bottles.producer_id = %d;
+				   Bottles.price = %f, Bottles.producer_id = %d WHERE Customers.customer_id = %s;
                    
 -- Updates existing producer in Producers table
-UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = %s;
+UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = %s WHERE Customers.customer_id = %s;
 
 -- Updates existing producer in Producers table if region_details is null
-UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = NULL;
+UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = NULL WHERE Customers.customer_id = %s;
 
 -- Updates existing bottle order in BottleOrders table
-UPDATE BottleOrders SET BottleOrders.customer_id = %d, BottleOrders.bottle_id = %d, BottleOrders.order_qty = %d;
+UPDATE BottleOrders SET BottleOrders.customer_id = %d, BottleOrders.bottle_id = %d, BottleOrders.order_qty = %d WHERE Customers.customer_id = %s;
 
 
 --           (DELETE queries)

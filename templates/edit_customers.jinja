@@ -1,0 +1,23 @@
+{% extends "main.jinja" %}
+{% block content %}
+
+<h2>Edit Customer</h2>
+<form method="POST">
+    <input type="hidden" name="customer_id" value="{{ customers['customer_id'] }}">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ customers['name'] }}" required><br><br>
+
+    <label for="phone_num">Phone Number:</label>
+    <input type="text" name="phone_num" value="{{ customers['phone_num'] }}" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" value="{{ customers['email'] }}"><br><br>
+
+    <label for="visit_frequency_monthly">Visit Frequency (Monthly):</label>
+    <input type="number" name="visit_frequency_monthly" value="{{ customers['visit_frequency_monthly'] }}"><br><br>
+
+    <button type="submit" name="edit_customers">Update Customer</button>
+</form>
+
+{% endblock %}

@@ -1,9 +1,18 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Bit & Barrel Windery Database</title>
+    <title>Bit & Barrel Winery Database</title>
 </head>
 <body>
-    <h1>Bit & Barrel Windery Database</h1>
-    <p>This is a demonstration project created to show students how to create a Flask app and connect it to a MySQL database.</p>
+    <h1>Bit & Barrel Winery Database</h1>
+    <nav>
+        <a href="{{ url_for('root') }}">Home Page</a>
+        <a href="{{ url_for('customers') }}">Customers Page</a>
+        <a href="/bottles.html">Bottles Page</a>
+        <a href="/orders.html">Orders Page</a>
+        <a href="/producers.html">Producers Page</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
