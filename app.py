@@ -50,22 +50,26 @@ def customers():
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name))
                 mysql.connection.commit()
+                cur.close()
             elif email == "":
                 query = "INSERT INTO Customers (phone_num, name, visit_frequency_monthly) VALUES (%s, %s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name, visit_frequency_monthly))
                 mysql.connection.commit()
+                cur.close()
             elif visit_frequency_monthly == "":
                 query = "INSERT INTO Customers (phone_num, email, name) VALUES (%s, %s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, email, name))
                 mysql.connection.commit()
+                cur.close()
             else:
                 query = "INSERT INTO Customers (phone_num, email, name, visit_frequency_monthly) VALUES (%s, %s, %s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, email, name, visit_frequency_monthly))
                 mysql.connection.commit()
-
+                cur.close()
+        
         return redirect("/customers")
         
 # Delete Customers Page
@@ -75,6 +79,7 @@ def delete_customers(customer_id):
     cur = mysql.connection.cursor()
     cur.execute(query, (customer_id,))
     mysql.connection.commit()
+    cur.close()
 
     return redirect("/customers")
 
@@ -90,7 +95,7 @@ def edit_customers(customer_id):
         return render_template("edit_customers.jinja", customers=data)
     
     if request.method == "POST":
-        if request.form.get("edit_customer"):
+        if request.form.get("edit_customers"):
             customer_id = request.form["customer_id"]
             phone_num = request.form["phone_num"]
             email = request.form["email"]
@@ -98,27 +103,30 @@ def edit_customers(customer_id):
             visit_frequency_monthly = request.form["visit_frequency_monthly"]
 
             if email == "" and visit_frequency_monthly == "":
-                query = "UPDATE Customers SET Customers.phone_num = %s, Customers.email = NULL, Customers.name = %s, Customers.visit_frequency_monthly = NULL WHERE Customers.customer_id = %s"
+                query = "UPDATE Customers SET phone_num = %s, email = NULL, name = %s, visit_frequency_monthly = NULL WHERE customer_id = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name, customer_id))
                 mysql.connection.commit()
+                cur.close()
             elif email == "":
-                query = "UPDATE Customers SET Customers.phone_num = %s, Customers.email = NULL, Customers.name = %s, Customers.visit_frequency_monthly = %s WHERE Customers.customer_id = %s"
+                query = "UPDATE Customers SET phone_num = %s, email = NULL, name = %s, visit_frequency_monthly = %s WHERE customer_id = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name, visit_frequency_monthly, customer_id))
                 mysql.connection.commit()
+                cur.close()
             elif visit_frequency_monthly == "":
-                query = "UPDATE Customers SET Customers.phone_num = %s, Customers.email = %s, Customers.name = %s, Customers.visit_frequency_monthly = NULL WHERE Customers.customer_id = %s"
+                query = "UPDATE Customers SET phone_num = %s, email = %s, name = %s, visit_frequency_monthly = NULL WHERE customer_id = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, email, name, customer_id))
                 mysql.connection.commit()
+                cur.close()
             else:
-                query = "UPDATE Customers SET Customers.phone_num = %s, Customers.email = %s, Customers.name = %s, Customers.visit_frequency_monthly = %s WHERE Customers.customer_id = %s"
+                query = "UPDATE Customers SET phone_num = %s, email = %s, name = %s, visit_frequency_monthly = %s WHERE customer_id = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, email, name, visit_frequency_monthly, customer_id))
                 mysql.connection.commit()
                 cur.close()
-
+        
         return redirect("/customers")
 
 
