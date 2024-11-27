@@ -1,0 +1,58 @@
+{% extends "main.jinja" %}
+{% block content %}
+
+<h2>Orders Table</h2>
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            {% for key in orders[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+        <tr>
+            {% for key in order.keys() %}
+            <td>{{order[key]}}</td>
+            {% endfor %}
+            <td>
+                <a href="{{ url_for('delete_order', order_id=order['order_id']) }}">
+                    <button class="button delete-btn" onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
+                </a>
+                <a href="{{ url_for('edit_order', order_id=order['order_id']) }}">
+                    <button class="button edit-btn">Edit</button>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2>Add a new order:</h2>
+<form action="{{ url_for('orders') }}" method="POST">
+    <label for="customer_id">Customer:</label>
+    <select id="customer_id" name="customer_id" required>
+        {% for customer in customers %}
+            <option value="{{ customer['customer_id'] }}">{{ customer['name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="bottle_id">Bottle:</label>
+    <select id="bottle_id" name="bottle_id" required>
+        {% for bottle in bottles %}
+            <option value="{{ bottle['bottle_id'] }}">{{ bottle['bottle_name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="order_total">Order Total:</label>
+    <input type="number" id="order_total" name="order_total" step="0.01" required>
+    <br><br>
+
+    <button type="submit" name="add_order" class="btn">Add Order</button>
+</form>
+
+{% endblock %}
