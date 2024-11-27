@@ -22,7 +22,7 @@ SELECT bottle_orderID, order_id, bottle_id, order_qty FROM BottleOrders;
 
 --           (CREATE queries)
 
--- Inserts a new customer into Cutomers table
+-- Inserts a new customer into Customers table
 INSERT INTO Customers (name, phone_num, email) VALUES (%s, %s, %s);
 
 -- Inserts a new bottle into Bottles table

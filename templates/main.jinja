@@ -8,9 +8,8 @@
     <nav>
         <a href="{{ url_for('root') }}">Home Page</a>
         <a href="{{ url_for('customers') }}">Customers Page</a>
-        <a href="/bottles.html">Bottles Page</a>
-        <a href="/orders.html">Orders Page</a>
-        <a href="/producers.html">Producers Page</a>
+        <a href="{{ url_for('bottles') }}">Bottles Page</a>
+        <a href="{{ url_for('producers') }}">Producers Page</a>
     </nav>
     {% block content %}
     {% endblock %}

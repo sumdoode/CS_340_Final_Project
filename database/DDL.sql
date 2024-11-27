@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers (
     customer_id INT NOT NULL AUTO_INCREMENT,
     phone_num VARCHAR(10) NOT NULL,
-    email VARCHAR(75),
+    email VARCHAR(75) NOT NULL,
     name VARCHAR(75) NOT NULL,
     visit_frequency_monthly INT,
     PRIMARY KEY (customer_id)
@@ -27,9 +27,9 @@ DROP TABLE IF EXISTS Produceers;
 
 CREATE TABLE Producers (
     producer_id INT NOT NULL AUTO_INCREMENT,
-    producer_name VARCHAR(50),
-    region VARCHAR(75),
-    region_details TEXT,
+    producer_name VARCHAR(50) NOT NULL,
+    region VARCHAR(75) NOT NULL,
+    region_details TEXT NOT NULL,
     PRIMARY KEY (producer_id)
 );
 -- Inserts sample data into Producers
@@ -44,12 +44,12 @@ DROP TABLE IF EXISTS Bottles;
 
 CREATE TABLE Bottles (
     bottle_id INT NOT NULL AUTO_INCREMENT,
-    bottle_name VARCHAR(50),
-    type VARCHAR(40),
-    volume INT,
-    production_yr INT,
-    alc_percent DECIMAL(4, 2),
-    price DECIMAL(7, 2),
+    bottle_name VARCHAR(50) NOT NULL,
+    type VARCHAR(40) NOT NULL,
+    volume INT NOT NULL,
+    production_yr INT NOT NULL,
+    alc_percent DECIMAL(4, 2) NOT NULL,
+    price DECIMAL(7, 2) NOT NULL,
     producer_id INT NOT NULL,
     PRIMARY KEY (bottle_id),
     FOREIGN KEY (producer_id) REFERENCES Producers(producer_id)
@@ -88,7 +88,7 @@ CREATE TABLE BottleOrders (
 	bottle_orderID INT NOT NULL AUTO_INCREMENT,
     order_id INT NOT NULL,
     bottle_id INT NOT NULL,
-    order_qty INT,
+    order_qty INT NOT NULL,
     PRIMARY KEY (bottle_orderID),
     FOREIGN KEY (order_id) REFERENCES Orders(order_id)
 		ON UPDATE CASCADE ON DELETE CASCADE,
