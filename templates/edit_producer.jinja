@@ -1,0 +1,26 @@
+{% extends "main.jinja" %}
+{% block content %}
+
+<h2>Edit Producer</h2>
+
+<!-- Displaying the existing producer's details in an editable form -->
+<form action="{{ url_for('edit_producer', producer_id=producers['producer_id']) }}" method="POST">
+
+    <!-- Hidden input to keep track of the producer_id -->
+    <input type="hidden" name="producer_id" value="{{ producers['producer_id'] }}">
+
+    <label for="producer_name">Producer Name:</label>
+    <input type="text" id="producer_name" name="producer_name" value="{{ producers['producer_name'] }}" required>
+    <br><br>
+
+    <label for="region">Region:</label>
+    <input type="text" id="region" name="region" value="{{ producers['region'] }}" required>
+    <br><br>
+
+    <label for="region_details">Region Details:</label>
+    <textarea id="region_details" name="region_details" required>{{ producers['region_details'] }}</textarea>
+    <br><br>
+
+    <button type="submit" name="edit_producer" class="btn" class="btn btn-dark">Update Producer</button>
+</form>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "main.jinja" %}
+{% block content %}
+
+<h2>Bottle Orders</h2>
+
+<!-- Table of existing bottle orders -->
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+        {% for key in bottleorders[0].keys() %}
+        <th>{{ key }}</th>
+        {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for bottle_order in bottleorders %}
+        <tr>
+            <td>{{ bottle_order['order_id'] }}</td>
+            <td>{{ bottle_order['bottle_id'] }}</td>
+            <td>
+                {% for bottle in bottles %}
+                    {% if bottle['bottle_id'] == bottle_order['bottle_id'] %}
+                        {{ bottle['bottle_name'] }}
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ bottle_order['order_qty'] }}</td>
+            <td>
+                <!-- Edit and Delete buttons -->
+                <a href="{{ url_for('edit_bottle_orders', bottle_orderID=bottle_order['bottle_orderID']) }}">
+                    <button type="button" class="btn btn-primary">Edit</button>
+                </a>
+                <a href="{{ url_for('delete_bottle_order', bottle_orderID=bottle_order['bottle_orderID']) }}" 
+                    <button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2>Add a New Bottle Order</h2>
+<form action="{{ url_for('bottle_orders') }}" method="POST">
+
+    <label for="order_id">Order ID:</label>
+    <select name="order_id" required>
+        <option value="">Select Order</option>
+        {% for order in orders %}
+            <option value="{{ order['order_id'] }}">{{ order['order_id'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="bottle_id">Bottle:</label>
+    <select name="bottle_id" required>
+        <option value="">Select Bottle</option>
+        {% for bottle in bottles %}
+            <option value="{{ bottle['bottle_id'] }}">{{ bottle['bottle_name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="order_qty">Quantity:</label>
+    <input type="number" name="order_qty" required><br><br>
+
+    <button type="submit" name="add_bottle_order" class="btn btn-dark">Add Bottle Order</button>
+</form>
+
+{% endblock %}

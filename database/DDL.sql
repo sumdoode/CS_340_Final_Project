@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers (
     customer_id INT NOT NULL AUTO_INCREMENT,
     phone_num VARCHAR(10) NOT NULL,
-    email VARCHAR(75) NOT NULL,
+    email VARCHAR(75),
     name VARCHAR(75) NOT NULL,
     visit_frequency_monthly INT,
     PRIMARY KEY (customer_id)

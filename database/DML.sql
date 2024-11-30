@@ -17,7 +17,8 @@ SELECT producer_id, producer_name, region, region_details FROM Producers;
 SELECT order_id, customer_id, bottle_id, order_total FROM Orders;
 
 -- Gets all bottle orders to populate the Bottle Orders page
-SELECT bottle_orderID, order_id, bottle_id, order_qty FROM BottleOrders;
+SELECT BottleOrders.bottle_orderID, Orders.order_id, Bottles.bottle_id, BottleOrders.order_qty FROM BottleOrders 
+JOIN Orders on BottleOrders.order_id = Orders.order_id JOIN Bottles on BottleOrders.bottle_id = Bottles.bottle_id;
 
 
 --           (CREATE queries)
@@ -35,7 +36,7 @@ INSERT INTO Producers (producer_name, region, region_details) VALUES (%s, $s, $s
 INSERT INTO Orders (customer_id, bottle_id, order_total) VALUES (%d, %d, %f);
 
 -- Inserts a new bottle order into BottleOrders table
-INSERT INTO Orders (order_id, bottle_id, order_qty) VALUES (%d, %d, %d);
+INSERT INTO BottleOrders (order_id, bottle_id, order_qty) VALUES (%d, %d, %d);
 
 
 --           (UPDATE queries)
@@ -51,7 +52,7 @@ UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Produc
 UPDATE Producers SET Producers.producer_name = %s, Producers.region = %s, Producers.region_details = NULL WHERE Customers.customer_id = %s;
 
 -- Updates existing bottle order in BottleOrders table
-UPDATE BottleOrders SET BottleOrders.customer_id = %d, BottleOrders.bottle_id = %d, BottleOrders.order_qty = %d WHERE Customers.customer_id = %s;
+UPDATE BottleOrders SET BottleOrders.order_qty = %d WHERE Orders.order_id= %s AND Bottles.bottle_id = %s;
 
 
 --           (DELETE queries)
@@ -60,7 +61,7 @@ UPDATE BottleOrders SET BottleOrders.customer_id = %d, BottleOrders.bottle_id = 
 DELETE FROM Bottles WHERE bottle_id = '%s';
 
 -- Deletes bottle order from BottleOrders table (M:M)
-DELETE FROM BottleOrders WHERE customer_id = '%d' AND bottle_id = '%d';
+DELETE FROM BottleOrders WHERE order_id = '%d' AND bottle_id = '%d';
 
 
 --           (Dropdown queries)

@@ -11,11 +11,11 @@
     <label for="type">Wine Type:</label>
     <input type="text" name="type" value="{{ bottles['type'] }}" required><br><br>
 
-    <label for="volume">Volume:</label>
-    <input type="text" name="volume" value="{{ bottles['volume'] }}"><br><br>
+    <label for="volume">Volume (mL):</label>
+    <input type="text" name="volume" value="{{ bottles['volume'] }}" required><br><br>
 
     <label for="production_yr">Year Produced:</label>
-    <input type="text" name="production_yr" value="{{ bottles['production_yr'] }}"><br><br>
+    <input type="text" name="production_yr" value="{{ bottles['production_yr'] }} required"><br><br>
 
     <label for="alc_percent">% Alcohol:</label>
     <input type="text" name="alc_percent" value="{{ bottles['alc_percent'] }}" required><br><br>
@@ -26,7 +26,7 @@
     <label for="producer_id">Producer:</label>
     <input type="text" name="producer_id" value="{{ bottles['producer_id'] }}" required><br><br>
 
-    <button type="submit" name="edit_bottles">Update Bottle</button>
+    <button type="submit" name="edit_bottles" class="btn btn-dark">Update Bottle</button>
 </form>
 
 {% endblock %}
