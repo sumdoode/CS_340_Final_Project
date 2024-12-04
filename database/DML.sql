@@ -1,4 +1,11 @@
 -- Team 40 ( Manuel Ramirez & Gabriel Del Valle Rivera )
+
+-- Citation for the following code:
+-- Date: 12/09/2024
+-- Adapted from and based on:
+-- Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app?tab=readme-ov-file#step-5---connecting-the-database
+-- Source URL: https://www.w3schools.com/sql/default.asp
+
 -- Data Manipulation Queries
 
 
@@ -68,4 +75,3 @@ DELETE FROM BottleOrders WHERE order_id = '%d' AND bottle_id = '%d';
 
 -- Select query for producers dropdown menu
 SELECT producer_id, producer_name FROM Producers;
-

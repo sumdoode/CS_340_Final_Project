@@ -1,5 +1,11 @@
 -- Team 40 ( Manuel Ramirez & Gabriel Del Valle Rivera )
 
+-- Citation for the following code:
+-- Date: 12/09/2024
+-- Adapted from and based on:
+-- Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app?tab=readme-ov-file#step-5---connecting-the-database
+-- Source URL: https://www.w3schools.com/sql/default.asp
+
 -- Disables commits and foreign key checks per recommendations
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
@@ -23,7 +29,7 @@ VALUES ('7561485213', 'gsmith@email.com', 'George Smith', 2),
 
 
 -- Creates Producers table
-DROP TABLE IF EXISTS Produceers;
+DROP TABLE IF EXISTS Producers;
 
 CREATE TABLE Producers (
     producer_id INT NOT NULL AUTO_INCREMENT,

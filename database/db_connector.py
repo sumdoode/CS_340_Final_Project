@@ -1,3 +1,8 @@
+# Citation for the following code:
+# Date: 12/09/2024
+# Adapted from and based on:
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app?tab=readme-ov-file#step-5---connecting-the-database
+
 import MySQLdb
 import os
 from database.db_credentials import host, user, passwd, db

@@ -1,3 +1,11 @@
+# Citation for the following code:
+# Date: 12/09/2024
+# Adapted from and based on:
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app?tab=readme-ov-file#step-5---connecting-the-database
+# Source URL: https://flask.palletsprojects.com/en/stable/quickstart/
+# Source URL: https://www.askpython.com/python-modules/flask/flask-crud-application
+
+
 from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
 from flask import request
@@ -468,3 +476,4 @@ def edit_bottle_orders(bottle_orderID):
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 53786))
     app.run(port=port, debug=True)  # Change port later
+    
