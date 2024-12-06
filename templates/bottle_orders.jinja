@@ -10,18 +10,20 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Used to display Bottle Orders Table -->
 <h2>Bottle Orders</h2>
-
-<!-- Table of existing bottle orders -->
 <table border="1" cellpadding="5">
     <thead>
         <tr>
+        <!-- Sets name for the column based on Table attributes -->
         {% for key in bottleorders[0].keys() %}
         <th>{{ key }}</th>
         {% endfor %}
+        <th>Actions</th>
         </tr>
     </thead>
     <tbody>
+    <!-- Loops through BottleOrders to display data -->
     {% for bottle_order in bottleorders %}
         <tr>
             <td>{{ bottle_order['order_id'] }}</td>
@@ -35,7 +37,7 @@
             </td>
             <td>{{ bottle_order['order_qty'] }}</td>
             <td>
-                <!-- Edit and Delete buttons -->
+                <!-- Delete / Edit Functions -->
                 <a href="{{ url_for('edit_bottle_orders', bottle_orderID=bottle_order['bottle_orderID']) }}">
                     <button type="button" class="btn btn-primary">Edit</button>
                 </a>
@@ -48,9 +50,11 @@
     </tbody>
 </table>
 
+<!-- Create BottleORder form -->
 <h2>Add a New Bottle Order</h2>
 <form action="{{ url_for('bottle_orders') }}" method="POST">
 
+    <!-- Order id dropdown -->
     <label for="order_id">Order ID:</label>
     <select name="order_id" required>
         <option value="">Select Order</option>
@@ -60,6 +64,7 @@
     </select>
     <br><br>
 
+    <!-- Displays bottle name -->
     <label for="bottle_id">Bottle:</label>
     <select name="bottle_id" required>
         <option value="">Select Bottle</option>

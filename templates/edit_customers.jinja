@@ -10,7 +10,9 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Edit Customer Form -->
 <h2>Edit Customer</h2>
+
 <form method="POST">
     <input type="hidden" name="customer_id" value="{{ customers['customer_id'] }}">
 
@@ -26,6 +28,7 @@
     <label for="visit_frequency_monthly">Visit Frequency (Monthly):</label>
     <input type="number" name="visit_frequency_monthly" value="{{ customers['visit_frequency_monthly'] }}"><br><br>
 
+    <!-- Edit Customer button -->
     <button type="submit" name="edit_customers" class="btn btn-dark">Update Customer</button>
 </form>
 

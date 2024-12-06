@@ -10,9 +10,9 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Edit Producer Form -->
 <h2>Edit Producer</h2>
 
-<!-- Displaying the existing producer's details in an editable form -->
 <form action="{{ url_for('edit_producer', producer_id=producers['producer_id']) }}" method="POST">
 
     <!-- Hidden input to keep track of the producer_id -->
@@ -30,6 +30,7 @@
     <textarea id="region_details" name="region_details" required>{{ producers['region_details'] }}</textarea>
     <br><br>
 
+    <!-- Edit Producer button -->
     <button type="submit" name="edit_producer" class="btn btn-dark">Update Producer</button>
 </form>
 {% endblock %}

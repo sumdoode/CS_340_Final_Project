@@ -10,6 +10,7 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Edit Bottle Form -->
 <h2>Edit Bottle</h2>
 <form method="POST">
     <input type="hidden" name="bottle_id" value="{{ bottles['bottle_id'] }}">
@@ -32,9 +33,17 @@
     <label for="price">Price:</label>
     <input type="text" name="price" value="{{ bottles['price'] }}" required><br><br>
 
+    <!-- Creates producer dropdown -->
     <label for="producer_id">Producer:</label>
-    <input type="text" name="producer_id" value="{{ bottles['producer_id'] }}" required><br><br>
+    <select id="producer_id" name="producer_id" required>
+        <option value="">Select Producer</option>
+        {% for producer in producers %}
+            <option value="{{ producer['producer_id'] }}" {% if producer['producer_id'] == bottles['producer_id'] %}selected{% endif %}>{{ producer['producer_name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
 
+    <!-- Edit Bottle button -->
     <button type="submit" name="edit_bottles" class="btn btn-dark">Update Bottle</button>
 </form>
 

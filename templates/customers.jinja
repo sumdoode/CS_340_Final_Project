@@ -10,24 +10,28 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Used to display Customer Table -->
 <h2>Customers Table</h2>
 <table  border="1" cellpadding="5">
     <thead>
         <tr>
-        {% for key in customers[0].keys() %}
-        <th>{{ key }}</th>
-        {% endfor %}
-		<th>Actions</th>
+        <!-- Sets name for the column based on Table attributes -->
+            {% for key in customers[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+		    <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
+    <!-- Loops through customers to display data -->
     {% for person in customers %}
         <tr>
             {% for key in person.keys() %}
             <td>{{person[key]}}</td>
             {% endfor %}
 			<td>
+            <!-- Delete / Edit Functions -->
 				<a href="{{ url_for('delete_customers', customer_id=person['customer_id']) }}">
 					<button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this customer?')">Delete</button>
 				</a>
@@ -40,6 +44,7 @@
     </tbody>
 </table>
 
+<!-- Create Customer Form -->
 <h2>Add a new customer:</h2>
 <form action="{{ url_for('customers') }}" method="POST">
 

@@ -10,12 +10,14 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Edit bottle order form -->
 <h2>Edit Bottle Order</h2>
 
 <form action="{{ url_for('edit_bottle_orders', bottle_orderID=bottleorder['bottle_orderID']) }}" method="POST">
 
     <input type="hidden" name="bottle_orderID" value="{{ bottleorder['bottle_orderID'] }}">
 
+    <!-- Order id dropdown -->
     <label for="order_id">Order ID:</label>
     <select name="order_id" required>
         <option value="">Select Order</option>
@@ -28,6 +30,7 @@
     </select>
     <br><br>
 
+    <!-- Displays bottle name -->
     <label for="bottle_id">Bottle:</label>
     <select name="bottle_id" required>
         <option value="">Select Bottle</option>
@@ -44,6 +47,7 @@
     <input type="number" name="order_qty" value="{{ bottleorder['order_qty'] }}" required>
     <br><br>
 
+    <!-- Edit BottleOrder button -->
     <button type="submit" name="edit_bottle_order" class="btn btn-dark">Update Bottle Order</button>
 </form>
 

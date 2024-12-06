@@ -41,33 +41,36 @@ def root():
 @app.route('/customers', methods=["POST", "GET"])
 def customers():
     if request.method == "GET":
-        query = "SELECT * FROM Customers"
+        # Query to display Customers table                             
+        query = "SELECT * FROM Customers"                           
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
         return render_template('customers.jinja', customers=data)
     
-    if request.method == "POST":
+    # Manages form to add new customers
+    if request.method == "POST":                                   
          if "add_customer" in request.form.keys():
             phone_num = request.form["phone_num"]
             email = request.form["email"]
             name = request.form["name"]
             visit_frequency_monthly = request.form["visit_frequency_monthly"]
 
-            if email == "" and visit_frequency_monthly == "":
+            # Manages NULL email AND NULL visit freq case
+            if email == "" and visit_frequency_monthly == "":                                    
                 query = "INSERT INTO Customers (phone_num, name) VALUES (%s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name))
                 mysql.connection.commit()
                 cur.close()
-            elif email == "":
+            elif email == "":                                                                  
                 query = "INSERT INTO Customers (phone_num, name, visit_frequency_monthly) VALUES (%s, %s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, name, visit_frequency_monthly))
                 mysql.connection.commit()
                 cur.close()
-            elif visit_frequency_monthly == "":
+            elif visit_frequency_monthly == "":                                                 
                 query = "INSERT INTO Customers (phone_num, email, name) VALUES (%s, %s, %s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (phone_num, email, name))
@@ -95,6 +98,8 @@ def delete_customers(customer_id):
 
 # Update Customers Page
 @app.route("/edit_customers/<int:customer_id>", methods=["POST", "GET"])
+
+# Handles route for editing an existing customer        
 def edit_customers(customer_id):
     if request.method == "GET":
         query = "SELECT * FROM Customers WHERE customer_id = %s"
@@ -104,7 +109,8 @@ def edit_customers(customer_id):
         
         return render_template("edit_customers.jinja", customers=data)
     
-    if request.method == "POST":
+    # Handles form submission of edited customer record and returns to customers page
+    if request.method == "POST":                                                
         if "edit_customers" in request.form.keys():
             customer_id = request.form["customer_id"]
             phone_num = request.form["phone_num"]
@@ -112,6 +118,7 @@ def edit_customers(customer_id):
             name = request.form["name"]
             visit_frequency_monthly = request.form["visit_frequency_monthly"]
 
+            # Handles NULL cases of email and visit freq
             if email == "" and visit_frequency_monthly == "":
                 query = "UPDATE Customers SET phone_num = %s, email = NULL, name = %s, visit_frequency_monthly = NULL WHERE customer_id = %s"
                 cur = mysql.connection.cursor()
@@ -145,13 +152,21 @@ def edit_customers(customer_id):
 @app.route('/bottles', methods=["POST", "GET"])
 def bottles():
     if request.method == "GET":
-        query = "SELECT * FROM Bottles"
+
+        # Query to display bottles AND producer name utilizing a JOIN
+        query = "SELECT Bottles.*, Producers.producer_name FROM Bottles JOIN Producers on Bottles.producer_id = Producers.producer_id"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template('bottles.jinja', bottles=data)
+        # Query to return producer names for dropdown menu
+        query2 = "SELECT producer_id, producer_name FROM Producers"
+        cur.execute(query2)
+        producers = cur.fetchall()
+
+        return render_template('bottles.jinja', bottles=data, producers=producers)
     
+    # Handles adding a new bottle
     if request.method == "POST":
          if "add_bottle" in request.form.keys():
             bottle_name = request.form["bottle_name"]
@@ -185,13 +200,20 @@ def delete_bottles(bottle_id):
 @app.route("/edit_bottles/<int:bottle_id>", methods=["POST", "GET"])
 def edit_bottles(bottle_id):
     if request.method == "GET":
-        query = "SELECT * FROM Bottles WHERE bottle_id = %s"
+        # Query to edit an existing bottle; displays producer name
+        query = "SELECT Bottles.*, Producers.producer_name FROM Bottles JOIN Producers on Bottles.producer_id = Producers.producer_id WHERE Bottles.bottle_id = %s"
         cur = mysql.connection.cursor()
         cur.execute(query, (bottle_id,))
         data = cur.fetchone()
+
+        # Query used to populate producer name in dropdown menu
+        query2 = "SELECT producer_id, producer_name FROM Producers"
+        cur.execute(query2)
+        producers = cur.fetchall()
         
-        return render_template("edit_bottles.jinja", bottles=data)
+        return render_template("edit_bottles.jinja", bottles=data, producers=producers)
     
+    # Submits updated bottle to the database
     if request.method == "POST":
         if "edit_bottles" in request.form.keys():
             bottle_id = request.form["bottle_id"]
@@ -203,7 +225,6 @@ def edit_bottles(bottle_id):
             price = request.form["price"]
             producer_id = request.form["producer_id"]
 
-            
             query = "UPDATE Bottles SET bottle_name = %s, type = %s, volume = %s, production_yr = %s, alc_percent = %s, price = %s, producer_id = %s WHERE bottle_id = %s"
             cur = mysql.connection.cursor()
             cur.execute(query, (bottle_name, type, volume, production_yr, alc_percent, price, producer_id, bottle_id))
@@ -226,6 +247,7 @@ def producers():
 
         return render_template('producers.jinja', producers=data)
     
+    # Handles adding a new producer
     if request.method == "POST":
         if "add_producer" in request.form.keys():
             producer_name = request.form["producer_name"]
@@ -256,6 +278,8 @@ def delete_producer(producer_id):
 # Update Producer Page
 @app.route("/edit_producer/<int:producer_id>", methods=["POST", "GET"])
 def edit_producer(producer_id):
+
+    # Handles showing producer to be edited
     if request.method == "GET":
         query = "SELECT * FROM Producers WHERE producer_id = %s"
         cur = mysql.connection.cursor()
@@ -264,6 +288,7 @@ def edit_producer(producer_id):
         
         return render_template("edit_producer.jinja", producers=data)
     
+    # Handles sending data to update producer
     if request.method == "POST":
         if "edit_producer" in request.form.keys():
             producer_id = request.form["producer_id"]
@@ -286,6 +311,7 @@ def edit_producer(producer_id):
 @app.route('/orders', methods=["POST", "GET"])
 def orders():
     if request.method == "GET":
+        # Query to show orders table including customer and bottle names
         query = """
         SELECT Orders.order_id, Orders.customer_id, Orders.bottle_id, Orders.order_total, Customers.name, Bottles.bottle_name
         FROM Orders
@@ -296,7 +322,7 @@ def orders():
         cur.execute(query)
         data = cur.fetchall()
 
-         # Query to fetch all customers for the dropdown
+        # Query to fetch all customers for the dropdown
         query_customers = "SELECT customer_id, name FROM Customers"
         cur.execute(query_customers)
         customers = cur.fetchall()
@@ -308,6 +334,7 @@ def orders():
 
         return render_template('orders.jinja', orders=data, customers=customers, bottles=bottles)
     
+    # Handles sending new order data
     if request.method == "POST":
         if "add_order" in request.form.keys():
             customer_id = request.form["customer_id"]
@@ -339,25 +366,25 @@ def delete_order(order_id):
 @app.route("/edit_order/<int:order_id>", methods=["POST", "GET"])
 def edit_order(order_id):
     if request.method == "GET":
-        # Fetch the order to edit
+        # Query to fetch the order to edit
         query_order = "SELECT * FROM Orders WHERE order_id = %s"
         cur = mysql.connection.cursor()
         cur.execute(query_order, (order_id,))
         order = cur.fetchone()
 
-        # Fetch all customers for the form
+        # Query to fetch all customers for dropdown
         query_customers = "SELECT customer_id, name FROM Customers"
         cur.execute(query_customers)
         customers = cur.fetchall()
 
-        # Fetch all bottles for the form
+        # Query to fetch all bottles for dropdown
         query_bottles = "SELECT bottle_id, bottle_name FROM Bottles"
         cur.execute(query_bottles)
         bottles = cur.fetchall()
 
-        # Render the edit order page
         return render_template('edit_order.jinja', order=order, customers=customers, bottles=bottles)
 
+    # Handles updating existing order data
     if request.method == "POST":
         if "edit_order" in request.form.keys():
             order_id = request.form["order_id"]
@@ -385,7 +412,7 @@ def bottle_orders():
             SELECT BottleOrders.bottle_orderID, Orders.order_id, Bottles.bottle_id, BottleOrders.order_qty
             FROM BottleOrders
             JOIN Orders ON BottleOrders.order_id = Orders.order_id
-            JOIN Bottles ON BottleOrders.bottle_id = Bottles.bottle_id;
+            LEFT JOIN Bottles ON BottleOrders.bottle_id = Bottles.bottle_id;
         """
         cur = mysql.connection.cursor()
         cur.execute(query)
@@ -403,17 +430,19 @@ def bottle_orders():
 
         return render_template('bottle_orders.jinja', bottleorders=data, orders=orders, bottles=bottles)
 
+    # Handles adding a new bottle order to th table
     if request.method == "POST":
         if "add_bottle_order" in request.form.keys(): 
             order_id = request.form["order_id"]
             bottle_id = request.form["bottle_id"]
             order_qty = request.form["order_qty"]
 
+            # Handles a null bottle_id
+            if not bottle_id:
+                bottle_id = None
+
             # Insert new bottle order into BottleOrders table
-            query = """
-                INSERT INTO BottleOrders (order_id, bottle_id, order_qty) 
-                VALUES (%s, %s, %s)
-            """
+            query = "INSERT INTO BottleOrders (order_id, bottle_id, order_qty) VALUES (%s, %s, %s)"
             cur = mysql.connection.cursor()
             cur.execute(query, (order_id, bottle_id, order_qty))
             mysql.connection.commit()
@@ -421,10 +450,10 @@ def bottle_orders():
 
             return redirect("/bottle_orders")
 
+
 # Delete Bottle Orders Page
 @app.route('/delete_bottle_order/<int:bottle_orderID>')
 def delete_bottle_order(bottle_orderID):
-    # Delete bottle order by its primary key (bottle_orderID)
     query = "DELETE FROM BottleOrders WHERE bottle_orderID = %s;"
     cur = mysql.connection.cursor()
     cur.execute(query, (bottle_orderID,))
@@ -433,7 +462,8 @@ def delete_bottle_order(bottle_orderID):
 
     return redirect('/bottle_orders')
 
-# Edit Bottle Order (Update)
+
+# Update Bottle Order
 @app.route('/edit_bottle_orders/<int:bottle_orderID>', methods=["POST", "GET"])
 def edit_bottle_orders(bottle_orderID):
     if request.method == "GET":
@@ -443,27 +473,29 @@ def edit_bottle_orders(bottle_orderID):
         cur.execute(query, (bottle_orderID,))
         data = cur.fetchone()
 
-        # Get available orders and bottles for the form
+        # Get available orders...
         cur.execute("SELECT order_id FROM Orders")
         orders = cur.fetchall()
-
+        
+        # ...and bottles for the form
         cur.execute("SELECT bottle_id, bottle_name FROM Bottles")
         bottles = cur.fetchall()
 
         return render_template('edit_bottle_orders.jinja', bottleorder=data, orders=orders, bottles=bottles)
 
+    # Sends updated bottle order 
     if request.method == "POST":
          if "edit_bottle_order" in request.form.keys():
             order_id = request.form["order_id"]
             bottle_id = request.form["bottle_id"]
             order_qty = request.form["order_qty"]
 
+            # Handles a null bottle_id
+            if not bottle_id:
+                bottle_id = None
+
             # Update the existing record in BottleOrders table
-            query = """
-                UPDATE BottleOrders 
-                SET order_id = %s, bottle_id = %s, order_qty = %s 
-                WHERE bottle_orderID = %s
-            """
+            query = "UPDATE BottleOrders SET order_id = %s, bottle_id = %s, order_qty = %s WHERE bottle_orderID = %s"
             cur = mysql.connection.cursor()
             cur.execute(query, (order_id, bottle_id, order_qty, bottle_orderID))
             mysql.connection.commit()
@@ -474,6 +506,5 @@ def edit_bottle_orders(bottle_orderID):
 
 # Listener
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 53786))
+    port = int(os.environ.get('PORT', 53785))
     app.run(port=port, debug=True)  # Change port later
-    

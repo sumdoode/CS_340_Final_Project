@@ -10,6 +10,7 @@
 {% extends "main.jinja" %}
 {% block content %}
 
+<!-- Used to display Bottles Table -->
 <h2>Bottles Table</h2>
 <table  border="1" cellpadding="5">
     <thead>
@@ -17,17 +18,22 @@
         {% for key in bottles[0].keys() %}
         <th>{{ key }}</th>
         {% endfor %}
+        <th>Producer Name</th>
 		<th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
+    <!-- Loops through bottles to display data -->
     {% for bottle in bottles %}
         <tr>
             {% for key in bottle.keys() %}
             <td>{{bottle[key]}}</td>
             {% endfor %}
+            <!-- used to display producer name -->
+            <td>{{ bottle['produceer_name'] }}</td>
 			<td>
+            <!-- Delete / Edit Functions -->
 				<a href="{{ url_for('delete_bottles', bottle_id=bottle['bottle_id']) }}">
 					<button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this bottle?')">Delete</button>
 				</a>
@@ -40,6 +46,7 @@
     </tbody>
 </table>
 
+<!-- Create Bottle Form -->
 <h2>Add a new bottle:</h2>
 <form action="{{ url_for('bottles') }}" method="POST">
 
@@ -67,8 +74,14 @@
     <input type="text" id="price" name="price" required>
     <br><br>
 
+    <!-- Uses a drodown menu for producer_id -->
     <label for="producer_id">Producer:</label>
-    <input type="text" id="producer_id" name="producer_id" required>
+    <select id="producer_id" name="producer_id" required>
+        <option value="">Select Producer</option>
+        {% for producer in producers %}
+            <option value="{{ producer['producer_id'] }}">{{ producer['producer_name'] }}</option>
+        {% endfor %}
+    </select>
     <br><br>
 
     <button type="submit" name="add_bottle" class="btn btn-dark">Add Bottle</button>
